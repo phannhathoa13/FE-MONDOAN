@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { CART_UPDATED_EVENT, getCartItemCount } from "../../services/cartService";
+import vTechLogo from "../../assets/vTechLogo.png"
 
 const Header = () => {
   const navigate = useNavigate();
@@ -66,16 +67,13 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="header-logo">
-          <div className="logo-mark">V</div>
+          <img src={vTechLogo} alt="vTechLogo" className="logoImage"></img>
         </Link>
 
         <nav className="header-nav">
           <NavLink end to="/" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             Store
           </NavLink>
-          {/* <NavLink end to="/category/2" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-            PC
-          </NavLink> */}
           <NavLink to="/support" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             Support
           </NavLink>

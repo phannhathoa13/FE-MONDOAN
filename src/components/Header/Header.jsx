@@ -74,6 +74,7 @@ const Header = () => {
           <NavLink end to="/" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             Store
           </NavLink>
+          <div className="nav-item" onSubmit={handleSearch}>Search</div>
           <NavLink to="/support" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             Support
           </NavLink>
@@ -81,62 +82,61 @@ const Header = () => {
             <span>Cart</span>
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </NavLink>
+          <div className="header-user">
+            {token && user ? (
+              <div className="user-menu">
+                <div className="user-avatar">
+                  {user?.email ? user.email.charAt(0).toUpperCase() : "U"}
+                </div>
+                <span className="user-name">
+                  {user?.email ? user.email.split("@")[0] : "User"}
+                </span>
+                <div className="user-dropdown">
+                  <Link
+                    to="/edit-user"
+                    className="dropdown-item"
+                  >
+                    Edit User
+                  </Link>
+                  <Link
+                    to="/status-order"
+                    className="dropdown-item"
+                  >
+                    Order Status
+                  </Link>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="auth-buttons">
+                <Link to="/login" className="auth-button auth-button--secondary">
+                  Sign In
+                </Link>
+                <Link to="/create-account" className="auth-button">
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </div>
         </nav>
 
-        <form className="header-search" onSubmit={handleSearch}>
+
+        {/* <form className="header-search" onSubmit={handleSearch}>
           <input
             type="text"
             name="search"
             placeholder="Search products..."
             className="search-input"
           />
-          <button type="submit" className="search-btn">
-            🔍
-          </button>
-        </form>
+        </form> */}
 
-        <div className="header-user">
-          {token && user ? (
-            <div className="user-menu">
-              <div className="user-avatar">
-                {user?.email ? user.email.charAt(0).toUpperCase() : "U"}
-              </div>
-              <span className="user-name">
-                {user?.email ? user.email.split("@")[0] : "User"}
-              </span>
-              <div className="user-dropdown">
-                <Link
-                  to="/edit-user"
-                  className="dropdown-item"
-                >
-                  Edit User
-                </Link>
-                <Link
-                  to="/status-order"
-                  className="dropdown-item"
-                >
-                  Order Status
-                </Link>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={handleLogout}
-                >
-                  Log Out
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="auth-buttons">
-              <Link to="/login" className="auth-button auth-button--secondary">
-                Sign In
-              </Link>
-              <Link to="/create-account" className="auth-button">
-                Sign Up
-              </Link>
-            </div>
-          )}
-        </div>
+
       </div>
     </header>
   );

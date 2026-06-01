@@ -99,6 +99,7 @@
   margin-top: 24px;
 }
 
+/* 
 .product-card {
   background: #ffffff;
   border-radius: 16px;
@@ -111,7 +112,7 @@
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
+} */
 
 .product-thumb {
   width: 100%;
@@ -135,7 +136,7 @@
   font-size: 48px;
 }
 
-.product-card h4 {
+/* .product-card h4 {
   font-size: 18px;
   margin: 0 0 8px;
   color: #111827;
@@ -147,7 +148,7 @@
   color: #6b7280;
   font-size: 14px;
   line-height: 1.5;
-}
+} */
 
 .price-box {
   margin-bottom: 16px;

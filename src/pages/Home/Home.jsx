@@ -5,8 +5,19 @@ import { getProductsByCategory } from "../../services/productService";
 import { getAllCategories } from "../../services/categoryService";
 import { perks } from "../../constants";
 import ChatBotWidget from "../../components/ChatBot/ChatBot";
+import laptopIcon from "../../assets/laptopIcon.png"
+import pcIcon from "../../assets/PcIcon.png"
+import mouseIcon from "../../assets/MouseIcon.png"
+import keyboardIcon from "../../assets/KeyboardIcon.png"
+import microIcon from "../../assets/MicroIcon.png"
+import headphoneIcon from "../../assets/HeadphoneIcon.png"
+import speakerIcon from "../../assets/SpeakerIcon.png"
+import chairIcon from "../../assets/ChairIcon.png"
+import monitorIcon from "../../assets/monitorIcon.png"
+import { categoriesList, productList } from "../../components/Caterogy/Categoy";
 
-const ProductCard = ({ item, onProductClick, onBuyNow }) => {
+
+const ProductCard = ({ item, category, onProductClick, onBuyNow }) => {
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
@@ -14,7 +25,7 @@ const ProductCard = ({ item, onProductClick, onBuyNow }) => {
   };
 
   return (
-    <div 
+    <div
       className={`product-card ${item.highlight ? "highlight-card" : ""}`}
       onClick={() => onProductClick(item.id)}
       style={{ cursor: 'pointer' }}
@@ -27,8 +38,11 @@ const ProductCard = ({ item, onProductClick, onBuyNow }) => {
         )}
       </div>
       <h4>{item.title}</h4>
-      <p>{item.desc}</p>
-
+      <div className="product-thumb-configuration">
+        {item.configuration.map((conf, index) => (
+          <p key={index} className="configuration-text">{conf}</p>
+        ))}
+      </div>
       <div className="price-box">
         <span className="old-price">{item.oldPrice}</span>
         <span className="new-price">{item.price}</span>
@@ -56,9 +70,9 @@ const ProductSection = ({ title, tag, products, onProductClick, onBuyNow }) => {
 
       <div className="products-grid">
         {products.map((item) => (
-          <ProductCard 
-            key={item.id} 
-            item={item} 
+          <ProductCard
+            key={item.id}
+            item={item}
             onProductClick={onProductClick}
             onBuyNow={onBuyNow}
           />
@@ -86,7 +100,7 @@ const Home = () => {
   const getRandomCategories = (allCategories) => {
     // Lọc ra các category không phải 2, 10, 15
     const filteredCategories = allCategories.filter(cat => ![2, 10, 15].includes(cat.id));
-    
+
     // Lấy 3 category ngẫu nhiên
     const shuffled = [...filteredCategories].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 3).map(cat => cat.id);
@@ -96,11 +110,11 @@ const Home = () => {
     try {
       const fetchedCategories = await getAllCategories();
       setCategories(fetchedCategories);
-      
+
       // Lấy 3 category random sau khi fetch categories
       const randomCategoryIds = getRandomCategories(fetchedCategories);
       setTopCategories(randomCategoryIds);
-      
+
       // Khởi tạo products và loading state với random categories
       const initialProducts = {};
       const initialLoading = {};
@@ -108,6 +122,7 @@ const Home = () => {
         initialProducts[id] = [];
         initialLoading[id] = false;
       });
+
       setProducts(initialProducts);
       setLoading(initialLoading);
     } catch (error) {
@@ -147,34 +162,71 @@ const Home = () => {
 
       <main className="home-container">
         <section className="store-heading">
+          <h2>Store</h2>
           <div>
-            <h2>Store</h2>
-            <p>The best you buy the product you love to.</p>
+            <h2>The best you buy the </h2>
+            <h2>product you love to.</h2>
           </div>
         </section>
 
+        {/* Catetgory*/}
         <section className="category-bar">
-          {categories.map((item) => (
-            <div
-              key={item.id}
-              className={`category-item ${topCategories.includes(item.id) ? "active-category" : ""}`}
-              onClick={() => navigate(`/category/${item.id}`)}
-              style={{ cursor: 'pointer' }}
-            >
-              <div className="category-icon">{item.icon}</div>
-              <span>{item.name}</span>
-            </div>
-          ))}
+
+          {/* Catetgories Item */}
+          <div className="category-container" onClick={() => navigate(`/category/21`)}>
+            <img src={laptopIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Laptop</p>
+          </div>
+          <div className="category-container" onClick={() => navigate(`/category/32`)}>
+            <img src={pcIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>PC</p>
+          </div>
+          <div className="category-container" onClick={() => navigate(`/category/33`)}>
+            <img src={mouseIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Mouse</p>
+          </div>
+          <div className="category-container" onClick={() => navigate(`/category/30`)}>
+            <img src={keyboardIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Keyboard</p>
+          </div>
+          <div className="category-container" onClick={() => navigate(`/category/31`)}>
+            <img src={monitorIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Monitor</p>
+          </div>
+
+          <div className="category-container" onClick={() => navigate(`/category/22`)}>
+            <img src={headphoneIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Headphones</p>
+          </div>
+          <div className="category-container">
+            <img src={speakerIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Speaker</p>
+          </div>
+          <div className="category-container">
+            <img src={chairIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Chair</p>
+          </div>
+          <div className="category-container" >
+            <img src={microIcon} alt="laptopIcon" className="category-icon"></img>
+            <p>Micro</p>
+          </div>
+
         </section>
 
+
         {topCategories.map((categoryId) => {
-          const categoryName = categories.find((cat) => cat.id === categoryId)?.name || 'Products';
+
+          const categoryName = categoriesList.find((cat) => cat.categoryid === categoryId)?.name || 'Products';
+
           const categoryIcon = categories.find((cat) => cat.id === categoryId)?.icon || '📦';
-          const categoryProducts = products[categoryId] || [];
+
+          const categoryProducts = productList.filter(p => p.category_id === categoryId);
+
           const isLoading = loading[categoryId];
 
           return (
             <div key={categoryId}>
+
               {isLoading ? (
                 <p>Loading products...</p>
               ) : (
@@ -184,7 +236,7 @@ const Home = () => {
                   products={categoryProducts.map((product) => ({
                     id: product.id,
                     title: product.name,
-                    desc: product.description || 'No description',
+                    configuration: product.configuration,
                     oldPrice: `${(product.price * 1.2).toLocaleString()}đ`,
                     price: `${product.price.toLocaleString()}đ`,
                     thumb: product.thumbnail_url,
@@ -195,7 +247,7 @@ const Home = () => {
               )}
             </div>
           );
-        })} 
+        })}
 
         <section className="perks-section">
           <h3>The Perks of VTech</h3>

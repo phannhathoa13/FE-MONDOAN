@@ -1,0 +1,30 @@
+.category-bar {
+    display: flex;
+    border-radius: 18px;
+    margin-bottom: 30px;
+
+    .category-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 160px;
+        cursor: pointer;
+    }
+
+    .category-container p {
+        font-size: 20px;
+    }
+
+    .category-icon {
+        width: 100px;
+        height: 95px;
+        background-color: #F8F8F8;
+        border-radius: 30%;
+        border: 2px solid transparent;
+        transition: 0.2s ease;
+    }
+
+
+}

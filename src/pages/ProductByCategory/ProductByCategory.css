@@ -1,13 +1,21 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .product-category-page {
   min-height: 100vh;
-  background: #f6f6f8;
-  padding: 30px 0 60px;
+  background: #f5f5f7;
+  letter-spacing: 10%;
 }
 
 .product-category-container {
-  width: 1200px;
-  max-width: calc(100% - 40px);
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 60px;
 }
 
 .category-nav {

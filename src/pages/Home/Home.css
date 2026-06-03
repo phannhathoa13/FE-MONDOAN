@@ -99,7 +99,7 @@
 .section-left h3 {
   font-size: 20px;
   color: #111827;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .section-tag {
@@ -198,13 +198,13 @@
 
 
 .product-thumb-configuration.laptop {
-  gap: 6px;
+  gap: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 160px;
+  height: 170px;
   padding-left: 14px;
 
   .configuration-text {
@@ -217,13 +217,13 @@
 }
 
 .product-thumb-configuration.pc {
-  gap: 6px;
+  gap: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 160px;
+  height: 170px;
   padding-left: 14px;
 
   .configuration-text {
@@ -237,13 +237,13 @@
 }
 
 .product-thumb-configuration.keyboard {
-  gap: 6px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 80px;
+  height: 90px;
   padding-left: 14px;
 
   .configuration-text {
@@ -257,13 +257,13 @@
 }
 
 .product-thumb-configuration.mouse {
-  gap: 6px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 80px;
+  height: 90px;
   padding-left: 14px;
 
   .configuration-text {
@@ -277,13 +277,13 @@
 }
 
 .product-thumb-configuration.headphones {
-  gap: 6px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 80px;
+  height: 110px;
   padding-left: 14px;
 
   .configuration-text {
@@ -298,13 +298,13 @@
 
 
 .product-thumb-configuration.monitor {
-  gap: 6px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 8px;
-  height: 80px;
+  height: 90px;
   padding-left: 14px;
 
   .configuration-text {
@@ -330,13 +330,13 @@
 .old-price {
   color: #9ca3af;
   text-decoration: line-through;
-  font-size: 16px;
+  font-size: 14px;
   margin: 16px 0 0 14px;
 }
 
 .new-price {
-  color: #e11d48;
-  font-size: 16px;
+  color: #c5073b;
+  font-size: 20px;
   font-weight: 700;
   margin: 8px 0 0 14px;
 }
@@ -375,8 +375,6 @@
 }
 
 .perks-section {
-  background: #ffffff;
-  border: 1px solid #ececec;
   border-radius: 18px;
   padding: 24px;
   margin-bottom: 24px;
@@ -391,7 +389,7 @@
 
 .perks-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 2fr);
   gap: 16px;
 }
 
@@ -415,7 +413,7 @@
 }
 
 .top-selling-text {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 @media (max-width: 1200px) {

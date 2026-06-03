@@ -15,34 +15,113 @@ import speakerIcon from "../../assets/SpeakerIcon.png"
 import chairIcon from "../../assets/ChairIcon.png"
 import monitorIcon from "../../assets/monitorIcon.png"
 import { categoriesList, productList } from "../../components/Caterogy/Categoy";
+import motherboard from "../../assets/ConfigurationIcon/Motherboard.png"
+
+// Configuration PC/Laptop icon item
+import cpuIcon from "../../assets/ConfigurationIcon/CPU.png";
+import gpuIcon from "../../assets/ConfigurationIcon/GPU.png";
+import ramIcon from "../../assets/ConfigurationIcon/RAM.png";
+import ssdIcon from "../../assets/ConfigurationIcon/SSD.png";
+
+// Configuration Mouse icon item
+import BatteryMouse from "../../assets/ConfigurationIcon/BatteryMouse.png";
+import DpiMouse from "../../assets/ConfigurationIcon/DpiMouse.png";
+import LedMouse from "../../assets/ConfigurationIcon/LedMouse.png";
+import WireLessMouse from "../../assets/ConfigurationIcon/WireLessMouse.png";
+
+// Configuration Keyboard icon item
+import keyboardConfiguration from "../../assets/ConfigurationIcon/KeycapKeyboard.png";
+import layoutKeyBoard from "../../assets/ConfigurationIcon/LayoutKeyBoard.png";
+import uSBKeyBoard from "../../assets/ConfigurationIcon/USBKeyBoard.png";
+import KeycapKeyboard from "../../assets/ConfigurationIcon/KeycapKeyboard.png";
+
+// Configuration Keyboard icon item
+import monitorConfiguration from "../../assets/ConfigurationIcon/monitor.png";
+
 
 
 const ProductCard = ({ item, category, onProductClick, onBuyNow }) => {
-
   const handleBuyNow = (e) => {
     e.stopPropagation();
     onBuyNow(item.id);
+  };
+
+  console.log(category);
+
+
+  // Render configuration với icon <img src>
+  const renderConfiguration = () => {
+    if (!item.configuration || item.configuration.length === 0) return null;
+
+    return item.configuration.map((conf, index) => {
+      let iconSrc = null;
+
+      //Display các icon theo sau các Configuration
+      if (["Laptop", "PC"].includes(category)) {
+        switch (index) {
+          case 0: iconSrc = motherboard; break;
+          case 1: iconSrc = cpuIcon; break;
+          case 2: iconSrc = gpuIcon; break;
+          case 3: iconSrc = ramIcon; break;
+          case 4: iconSrc = ssdIcon; break;
+          default: iconSrc = null;
+        }
+      }
+      if (["Keyboard"].includes(category)) {
+        switch (index) {
+          case 0: iconSrc = uSBKeyBoard; break;
+          case 1: iconSrc = layoutKeyBoard; break;
+          case 2: iconSrc = KeycapKeyboard; break;
+          case 3: iconSrc = LedMouse; break;
+          default: iconSrc = null;
+        }
+      }
+      if (["Mouse"].includes(category)) {
+        switch (index) {
+          case 0: iconSrc = BatteryMouse; break;
+          case 1: iconSrc = WireLessMouse; break;
+          case 2: iconSrc = DpiMouse; break;
+          default: iconSrc = null;
+        }
+      }
+      if (["Monitor"].includes(category)) {
+        switch (index) {
+          case 0: iconSrc = monitorConfiguration; break;
+          case 1: iconSrc = WireLessMouse; break;
+          case 2: iconSrc = layoutKeyBoard; break;
+          default: iconSrc = null;
+        }
+      } if (["Headphones"].includes(category)) {
+        switch (index) {
+          case 0: iconSrc = BatteryMouse; break;
+          case 1: iconSrc = WireLessMouse; break;
+          case 2: iconSrc = DpiMouse; break;
+          default: iconSrc = null;
+        }
+      }
+
+      return (
+        <p key={index} className="configuration-text">
+          {iconSrc && <img src={iconSrc} alt="icon" className="conf-icon" />} {conf}
+        </p>
+      );
+    });
   };
 
   return (
     <div
       className={`product-card ${item.highlight ? "highlight-card" : ""}`}
       onClick={() => onProductClick(item.id)}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: "pointer" }}
     >
       <div className="product-thumb">
-        {item.thumb ? (
-          <img src={item.thumb} alt={item.title} />
-        ) : (
-          <span>📦</span>
-        )}
+        {item.thumb ? <img src={item.thumb} alt={item.title} /> : <span>📦</span>}
       </div>
+
       <h4>{item.title}</h4>
-      <div className="product-thumb-configuration">
-        {item.configuration.map((conf, index) => (
-          <p key={index} className="configuration-text">{conf}</p>
-        ))}
-      </div>
+
+      <div className={`product-thumb-configuration ${category.toLowerCase()}`}>{renderConfiguration()}</div>
+
       <div className="price-box">
         <span className="old-price">{item.oldPrice}</span>
         <span className="new-price">{item.price}</span>
@@ -56,6 +135,7 @@ const ProductCard = ({ item, category, onProductClick, onBuyNow }) => {
     </div>
   );
 };
+
 
 const ProductSection = ({ title, tag, products, onProductClick, onBuyNow }) => {
   return (
@@ -73,6 +153,7 @@ const ProductSection = ({ title, tag, products, onProductClick, onBuyNow }) => {
           <ProductCard
             key={item.id}
             item={item}
+            category={item.category}
             onProductClick={onProductClick}
             onBuyNow={onBuyNow}
           />
@@ -162,10 +243,10 @@ const Home = () => {
 
       <main className="home-container">
         <section className="store-heading">
-          <h2>Store</h2>
+          <h1>Store</h1>
           <div>
-            <h2>The best you buy the </h2>
-            <h2>product you love to.</h2>
+            <h1>The best you buy the </h1>
+            <h1>product you love to.</h1>
           </div>
         </section>
 
@@ -212,7 +293,7 @@ const Home = () => {
           </div>
 
         </section>
-
+        <h1 className="recommend-content">Recommend for you</h1>
 
         {topCategories.map((categoryId) => {
 
@@ -235,6 +316,7 @@ const Home = () => {
                   tag="Recommended"
                   products={categoryProducts.map((product) => ({
                     id: product.id,
+                    category: product.category,
                     title: product.name,
                     configuration: product.configuration,
                     oldPrice: `${(product.price * 1.2).toLocaleString()}đ`,

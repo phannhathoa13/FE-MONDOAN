@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PaymentSuccess.css";
+import { CART_UPDATED_EVENT } from "../../services/cartService";
 
 export default function PaymentSuccess() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Reset cart count sau khi thanh toán xong
+    const resetCartEvent = new CustomEvent(CART_UPDATED_EVENT, { detail: { count: 0 } });
+    window.dispatchEvent(resetCartEvent);
+
+    // Nếu bạn lưu cart trong localStorage, xóa luôn:
+    localStorage.removeItem("cartCount");
+  }, []);
   return (
     <div className="payment-success-page">
       <div className="payment-success-card">

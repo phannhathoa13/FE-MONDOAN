@@ -2,12 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import "./StatusOrder.css";
 import { getMyProfile } from "../../services/authService";
 import { getMyOrders, getOrderById } from "../../services/orderService";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const sidebarItems = [
-  "Account Details",
-  "My Orders",
-  "Favorite Item",
-  "Payment Methods",
+  { name: "Account Details", negative: "/edit-user" },
+  { name: "My Orders", negative: "/status-order" },
+  { name: "Favorite Item", negative: "" },
+  { name: "Payment Methods", negative: "" },
 ];
 
 const formatCurrency = (value) => {
@@ -62,6 +63,9 @@ function StatusOrder() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeItem, setActiveItem] = useState("Account Details"); // default active
 
   useEffect(() => {
     const loadPageData = async () => {
@@ -161,17 +165,19 @@ function StatusOrder() {
               </div>
 
               <div className="order-sidebar-menu">
-                {sidebarItems.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`sidebar-menu-item ${
-                      item === "My Orders" ? "active" : ""
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
+                {sidebarItems.map((item) => {
+                  const isActive = location.pathname === item.negative; // kiểm tra active
+                  return (
+                    <button
+                      key={item.name}
+                      type="button"
+                      className={`sidebar-menu-item ${isActive ? "active" : ""}`}
+                      onClick={() => navigate(item.negative)}
+                    >
+                      {item.name}
+                    </button>
+                  );
+                })}
               </div>
 
               <button type="button" className="signout-btn">
@@ -209,6 +215,8 @@ function StatusOrder() {
                 {!loading &&
                   !error &&
                   orders.map((order) => {
+                    console.log(order);
+
                     const statusBadge = mapStatusToBadge(order.status);
 
                     return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "./Search.css";
-import { getProductsByName } from "../../services/productService";
+import { productList } from "../../components/Caterogy/Categoy";
 
 const ProductCard = ({ item, onProductClick }) => {
   return (
@@ -42,53 +42,38 @@ export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
 
-  const handleSearch = async (searchQuery) => {
-    const normalizedQuery = searchQuery.trim();
-
-    if (!normalizedQuery) {
-      setResults([]);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-    try {
-      const products = await getProductsByName(normalizedQuery);
-      setResults(products);
-    } catch (err) {
-      console.error('Search error:', err);
-      setError('Failed to search products. Please try again.');
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
+  // Search local productList
+  const searchLocalProducts = (searchQuery) => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    if (!normalizedQuery) return [];
+    return productList.filter((product) =>
+      product.name.toLowerCase().includes(normalizedQuery) || product.category.toLowerCase().includes(normalizedQuery)
+    );
   };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
     setSearchParams({ q: value });
+    setResults(searchLocalProducts(value));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSearch(query);
+    setResults(searchLocalProducts(query));
   };
 
+  // Load initial results from URL query
   useEffect(() => {
     const urlQuery = searchParams.get("q") || "";
-
     setQuery(urlQuery);
-
     if (urlQuery.trim()) {
-      handleSearch(urlQuery);
+      setResults(searchLocalProducts(urlQuery));
     } else {
       setResults([]);
     }
@@ -116,15 +101,11 @@ export default function Search() {
         </form>
 
         <div className="search-results">
-          {loading && <p className="loading">Searching...</p>}
-
-          {error && <p className="error">{error}</p>}
-
-          {!loading && !error && results.length === 0 && query && (
+          {!results.length && query && (
             <p className="no-results">No products found for "{query}"</p>
           )}
 
-          {!loading && results.length > 0 && (
+          {results.length > 0 && (
             <>
               <p className="results-count">Found {results.length} product(s)</p>
               <div className="products-grid">

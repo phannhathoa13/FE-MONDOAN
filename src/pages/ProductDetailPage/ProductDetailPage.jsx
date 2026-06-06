@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetailPage.css";
 import { getProductById } from "../../services/productService";
-import { addToCart } from "../../services/cartService";
+import { addToCart, CART_UPDATED_EVENT } from "../../services/cartService";
 import toast from "react-hot-toast";
 
 // Icon for categories
@@ -51,15 +51,30 @@ export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(heroImage);
   const [addToCartLoading, setAddToCartLoading] = useState(false);
 
+  const [quantity, setQuantity] = useState(1); // số lượng sản phẩm chọn
   const handleAddToCart = async () => {
     if (addToCartLoading) return;
 
+    let cartCount = Number(localStorage.getItem("cartCount")) || 0;
+
     try {
       setAddToCartLoading(true);
-      await addToCart(Number(productId), 1);
-      toast.success("Sản phẩm của bạn đã add vô cart thành công");
+
+      // Thêm sản phẩm vào cart (API/backend)
+      await addToCart(Number(productId), quantity);
+
+      // Cập nhật cartCount localStorage
+      cartCount += quantity;
+      localStorage.setItem("cartCount", cartCount);
+
+      // Trigger event để Header update
+      window.dispatchEvent(
+        new CustomEvent(CART_UPDATED_EVENT, { detail: { count: cartCount } })
+      );
+
+      toast.success("The product has been successfully added to your cart!");
     } catch (err) {
-      toast.error(err.message || "Không thể thêm sản phẩm vào cart");
+      toast.error(err.message || "Unable to add the product to the cart.");
     } finally {
       setAddToCartLoading(false);
     }
@@ -142,7 +157,7 @@ export default function ProductDetailPage() {
               case 2: iconSrc = DpiMouse; label = ` ${conf}`; break;
             }
           }
-          if (["PC"].includes(category)) {
+          if (["PC", "Laptop"].includes(category)) {
             switch (index) {
               case 0: iconSrc = monitorConfiguration; label = `Motherboard: ${conf}`; break;
               case 1: iconSrc = cpuIcon; label = `CPU: ${conf}`; break;

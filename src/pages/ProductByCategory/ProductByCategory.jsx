@@ -10,26 +10,6 @@ import { CategoryBar, productList } from "../../components/Caterogy/Categoy";
 import { ProductSection } from "../Home/Home";
 import { perks } from "../../constants";
 
-// Configuration PC/Laptop icon item
-import cpuIcon from "../../assets/ConfigurationIcon/CPU.png";
-import gpuIcon from "../../assets/ConfigurationIcon/GPU.png";
-import ramIcon from "../../assets/ConfigurationIcon/RAM.png";
-import ssdIcon from "../../assets/ConfigurationIcon/SSD.png";
-
-// Configuration Mouse icon item
-import BatteryMouse from "../../assets/ConfigurationIcon/BatteryMouse.png";
-import DpiMouse from "../../assets/ConfigurationIcon/DpiMouse.png";
-import LedMouse from "../../assets/ConfigurationIcon/LedMouse.png";
-import WireLessMouse from "../../assets/ConfigurationIcon/WireLessMouse.png";
-
-// Configuration Keyboard icon item
-import keyboardConfiguration from "../../assets/ConfigurationIcon/KeycapKeyboard.png";
-import layoutKeyBoard from "../../assets/ConfigurationIcon/LayoutKeyBoard.png";
-import uSBKeyBoard from "../../assets/ConfigurationIcon/USBKeyBoard.png";
-import KeycapKeyboard from "../../assets/ConfigurationIcon/KeycapKeyboard.png";
-
-// Configuration Keyboard icon item
-import monitorConfiguration from "../../assets/ConfigurationIcon/monitor.png";
 
 const formatPrice = (value) => {
   return value.toLocaleString("vi-VN") + "đ";

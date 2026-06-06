@@ -17,6 +17,7 @@ import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import EditUser from './pages/EditUser/EditUser';
 import StatusOrder from './pages/StatusOrder/StatusOrder';
 import PrivateRoute from './routes/PrivateRoute';
+import ChatBotWidget from './components/ChatBot/ChatBot';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -62,6 +63,7 @@ function App() {
         <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
+      <ChatBotWidget />
     </BrowserRouter>
   )
 }

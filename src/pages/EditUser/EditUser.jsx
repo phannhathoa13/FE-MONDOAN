@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaEnvelope, FaPhoneAlt, FaLock } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Header from "../../components/Header/Header";
@@ -7,8 +7,16 @@ import Footer from "../../components/Footer/Footer";
 import { getMyProfile, updateMyProfile } from "../../services/authService";
 import "./EditUser.css";
 
+const sidebarItems = [
+  { name: "Account Details", negative: "/edit-user" },
+  { name: "My Orders", negative: "/status-order" },
+  { name: "Favorite Item", negative: "" },
+  { name: "Payment Methods", negative: "" },
+];
+
 const EditUser = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -50,9 +58,9 @@ const EditUser = () => {
 
       setAvatar(
         storedUser.avatar_url ||
-          `https://ui-avatars.com/api/?name=${encodeURIComponent(
-            fallbackName || "User"
-          )}&background=ececec&color=555&size=128`
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          fallbackName || "User"
+        )}&background=ececec&color=555&size=128`
       );
 
       try {
@@ -72,9 +80,9 @@ const EditUser = () => {
 
         setAvatar(
           profile.avatar_url ||
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(
-              profile.user_name || profile.fullName || profile.username || "User"
-            )}&background=ececec&color=555&size=128`
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            profile.user_name || profile.fullName || profile.username || "User"
+          )}&background=ececec&color=555&size=128`
         );
 
         localStorage.setItem("user", JSON.stringify(profile));
@@ -194,9 +202,9 @@ const EditUser = () => {
 
         setAvatar(
           result.user.avatar_url ||
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(
-              result.user.user_name || result.user.fullName || "User"
-            )}&background=ececec&color=555&size=128`
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            result.user.user_name || result.user.fullName || "User"
+          )}&background=ececec&color=555&size=128`
         );
       }
 
@@ -222,7 +230,7 @@ const EditUser = () => {
 
   const menuItems = [
     { label: "Account Details", path: "/edit-user", active: true },
-    { label: "Order History", path: "/orders", active: false },
+    { label: "My Orders", path: "/orders-status", active: false },
     { label: "Favorite Item", path: "/wishlist", active: false },
     { label: "Payment Methods", path: "/payment-methods", active: false },
   ];
@@ -253,14 +261,13 @@ const EditUser = () => {
                   </div>
                 </div>
 
-                <div className="account-menu">
+                <div className="order-sidebar-menu">
                   {menuItems.map((item) => (
                     <button
                       key={item.label}
-                      className={`account-menu-item ${
-                        item.active ? "active" : ""
-                      }`}
-                      onClick={() => navigate(item.path)}
+                      className={`sidebar-menu-item ${item.active ? "active" : ""
+                        }`}
+                      onClick={() => navigate(`/status-order`)}
                     >
                       {item.label}
                     </button>

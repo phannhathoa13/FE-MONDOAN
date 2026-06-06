@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Cart.css";
-import { getCart, updateCartItemQty, removeCartItem } from "../../services/cartService";
+import { getCart, updateCartItemQty, removeCartItem, CART_UPDATED_EVENT } from "../../services/cartService";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -51,10 +51,25 @@ const Cart = () => {
     }
   };
 
+
   const removeItem = async (id) => {
     try {
+      const itemToRemove = cart.find(item => item.id === id);
+      const quantityToRemove = itemToRemove?.quantity || 1; // lấy đúng số lượng của sản phẩm
+
       await removeCartItem(id);
-      setCart((prev) => prev.filter((item) => item.id !== id));
+
+      // Cập nhật state cart
+      setCart(prev => prev.filter(item => item.id !== id));
+
+      // Cập nhật cartCount trong localStorage
+      let cartCount = Number(localStorage.getItem("cartCount")) || 0;
+      cartCount = Math.max(0, cartCount - quantityToRemove);
+      localStorage.setItem("cartCount", cartCount);
+
+      // Thông báo cập nhật cart toàn cục (nếu bạn dùng event)
+      window.dispatchEvent(new CustomEvent(CART_UPDATED_EVENT, { detail: { count: cartCount } }));
+
     } catch (err) {
       setError(err.message);
     }

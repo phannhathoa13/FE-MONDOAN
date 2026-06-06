@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login/Login'
 import { Home } from './pages/Home/Home'
@@ -17,7 +17,8 @@ import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import EditUser from './pages/EditUser/EditUser';
 import StatusOrder from './pages/StatusOrder/StatusOrder';
 import PrivateRoute from './routes/PrivateRoute';
-import ChatBotWidget from './components/ChatBot/ChatBot';
+import { ChatBotWithNavigate } from './components/ChatBot/ChatBot';
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -63,7 +64,7 @@ function App() {
         <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
-      <ChatBotWidget />
+      <ChatBotWithNavigate />
     </BrowserRouter>
   )
 }

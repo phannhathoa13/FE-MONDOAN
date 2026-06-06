@@ -4,7 +4,6 @@ import "./Home.css";
 import { getProductsByCategory } from "../../services/productService";
 import { getAllCategories } from "../../services/categoryService";
 import { perks } from "../../constants";
-import ChatBotWidget from "../../components/ChatBot/ChatBot";
 import laptopIcon from "../../assets/laptopIcon.png"
 import pcIcon from "../../assets/PcIcon.png"
 import mouseIcon from "../../assets/MouseIcon.png"
@@ -340,7 +339,6 @@ const Home = () => {
         </section>
       </main>
 
-      <ChatBotWidget onSuggestionClick={handleProductClick} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { askAiChatbot } from "../../services/chatbotService";
 import "./ChatBot.css";
+import { useNavigate } from "react-router-dom";
 
 const ChatBotWidget = ({ onSuggestionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ const ChatBotWidget = ({ onSuggestionClick }) => {
     {
       id: 1,
       role: "assistant",
-      content: "Xin chao! Toi la tro ly AI. Ban can tu van san pham nao hom nay?",
+      content: "Hello! I am your AI assistant. Which product would you like advice on today?",
       suggestions: [],
     },
   ]);
@@ -57,7 +58,7 @@ const ChatBotWidget = ({ onSuggestionClick }) => {
         {
           id: Date.now() + 2,
           role: "assistant",
-          content: "Xin loi, toi dang gap loi ket noi. Ban vui long thu lai sau it phut.",
+          content: "Sorry, I am experiencing a connection issue. Please try again in a few minutes",
           suggestions: [],
         },
       ]);
@@ -80,7 +81,7 @@ const ChatBotWidget = ({ onSuggestionClick }) => {
         <div className="chatbot-panel">
           <div className="chatbot-header">
             <div>
-              <h4>AI Tu Van</h4>
+              <h4>AI Assistant</h4>
               <p>Online</p>
             </div>
             <button
@@ -122,7 +123,7 @@ const ChatBotWidget = ({ onSuggestionClick }) => {
               </div>
             ))}
 
-            {isBotTyping && <div className="chat-msg chat-msg-assistant">Dang soan tra loi...</div>}
+            {isBotTyping && <div className="chat-msg chat-msg-assistant">Typing a response...</div>}
             <div ref={messagesEndRef} />
           </div>
 
@@ -143,4 +144,12 @@ const ChatBotWidget = ({ onSuggestionClick }) => {
   );
 };
 
-export default ChatBotWidget;
+const ChatBotWithNavigate = () => {
+  const navigate = useNavigate();
+  const handleSuggestionClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+  return <ChatBotWidget onSuggestionClick={handleSuggestionClick} />;
+};
+
+export { ChatBotWidget, ChatBotWithNavigate };

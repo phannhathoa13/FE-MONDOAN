@@ -6,13 +6,19 @@
 }
 
 .header {
-  width: 100%;
-  background: #FCFCFD;
-  border-bottom: 1px solid #e9e9e9;
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 50px;
+  /* chiều cao header */
   z-index: 1000;
+  background: #FCFCFD;
+  overflow: visible;
+  pointer-events: auto;
+  touch-action: none;
+  /* ngăn scroll vuốt trên mobile */
+  overscroll-behavior: contain;
 }
 
 .header-container {
@@ -23,6 +29,7 @@
   align-items: center;
   justify-content: center;
   gap: 32px;
+  overflow: hidden;
 }
 
 .header-logo {
@@ -62,7 +69,7 @@
 .nav-item {
   text-decoration: none;
   color: #111111;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 10%;
   transition: 0.2s ease;
@@ -105,7 +112,7 @@
 }
 
 .user-name {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: #111111;
   white-space: nowrap;
@@ -113,9 +120,9 @@
 }
 
 .user-dropdown {
-  position: absolute;
-  top: 110%;
-  right: 0;
+  position: fixed;
+  top: 46px;
+  right: 216px;
   min-width: 160px;
   background: #ffffff;
   border: 1px solid #e9e9e9;

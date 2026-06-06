@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login/Login'
-import Home from './pages/Home/Home'
+import { Home } from './pages/Home/Home'
 import CreateAccount from './pages/CreateAccount/CreateAccount'
 import ProductByCategory from './pages/ProductByCategory/ProductByCategory'
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage'

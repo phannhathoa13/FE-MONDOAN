@@ -7,6 +7,9 @@ import api from "../../utils/api";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const userLogedIn = localStorage.getItem('user')
+  console.log(userLogedIn);
+
   const from = location.state?.from;
   const redirectTo = from
     ? `${from.pathname || ""}${from.search || ""}${from.hash || ""}`
@@ -115,7 +118,7 @@ const Login = () => {
 
             <div className="divider">
               <span>or</span>
-            </div>  
+            </div>
 
             {/* <button type="button" className="google-btn">
               <span className="google-icon">G</span>

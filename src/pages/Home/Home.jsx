@@ -46,9 +46,6 @@ const ProductCard = ({ item, category, onProductClick, onBuyNow }) => {
     onBuyNow(item.id);
   };
 
-  console.log(category);
-
-
   // Render configuration với icon <img src>
   const renderConfiguration = () => {
     if (!item.configuration || item.configuration.length === 0) return null;
@@ -145,7 +142,6 @@ const ProductSection = ({ title, tag, products, onProductClick, onBuyNow }) => {
           <h3>{title}</h3>
           {tag && <span className="section-tag">{tag}</span>}
         </div>
-        <button className="view-all-btn">View all</button>
       </div>
 
       <div className="products-grid">
@@ -349,4 +345,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export { Home, ProductSection };

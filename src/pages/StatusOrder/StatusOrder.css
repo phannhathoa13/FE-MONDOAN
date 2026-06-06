@@ -1,7 +1,7 @@
 .order-status-page {
   min-height: calc(100vh - 160px);
   background: #f5f5f7;
-  padding: 32px 0 56px;
+  padding: 80px 0 56px;
 }
 
 .order-status-container {
@@ -295,7 +295,7 @@
     padding-top: 4px;
   }
 
-  .order-table-head > div:last-child {
+  .order-table-head>div:last-child {
     display: none;
   }
 }

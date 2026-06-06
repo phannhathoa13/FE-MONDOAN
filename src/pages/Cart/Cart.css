@@ -8,7 +8,7 @@
 .cart-container {
   width: 1200px;
   max-width: calc(100% - 40px);
-  margin: 0 auto;
+  margin: 80px auto;
 }
 
 .cart-head {

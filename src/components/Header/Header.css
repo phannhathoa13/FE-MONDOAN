@@ -19,6 +19,7 @@
   touch-action: none;
   /* ngăn scroll vuốt trên mobile */
   overscroll-behavior: contain;
+  overflow: visible;
 }
 
 .header-container {
@@ -132,7 +133,8 @@
   visibility: hidden;
   transform: translateY(-6px);
   transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
-  z-index: 10;
+  z-index: 2000;
+  /* make sure it’s above header */
 }
 
 .user-menu:hover .user-dropdown {
